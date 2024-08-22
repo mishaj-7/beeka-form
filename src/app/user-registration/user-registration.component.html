@@ -1,0 +1,31 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" required>
+    <mat-error *ngIf="registrationForm.get('name')?.hasError('required')">Name is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" required>
+    <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">Email is required</mat-error>
+    <mat-error *ngIf="registrationForm.get('email')?.hasError('email')">Please enter a valid email</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" required>
+    <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">Password is required</mat-error>
+    <mat-error *ngIf="registrationForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" 
+        [disabled]="registrationForm.invalid"
+        class="submit-button">
+  Register
+</button>
+  <div *ngIf="submitted">
+    <p *ngIf="success" class="success-message">Registration successful!</p>
+    <p *ngIf="!success" class="error-message">Please correct the errors and try again.</p>
+  </div>
+</form>
